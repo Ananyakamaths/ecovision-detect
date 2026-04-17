@@ -1,0 +1,115 @@
+[
+  {
+    "label": "paintbrush",
+    "category": "non_recyclable",
+    "confidence": "23.93"
+  },
+  {
+    "label": "paintbrush face powder maraca",
+    "category": "non_recyclable",
+    "confidence": "23.93"
+  },
+  {
+    "label": "paintbrush face powder maraca",
+    "category": "non_recyclable",
+    "confidence": "23.93"
+  },
+  {
+    "label": "paintbrush face powder maraca",
+    "category": "non_recyclable",
+    "confidence": "23.93"
+  },
+  {
+    "label": "paintbrush",
+    "category": "non_recyclable",
+    "confidence": "23.93"
+  },
+  {
+    "category": "organic",
+    "confidence": "20.00%"
+  },
+  {
+    "imageName": "bottle.webp",
+    "category": "recyclable",
+    "score": "90%",
+    "timestamp": "2026-04-16T14:25:07.472Z"
+  },
+  {
+    "imageName": "ewaste.jpg",
+    "category": "non recyclable",
+    "score": "20%",
+    "timestamp": "2026-04-16T14:25:21.674Z"
+  },
+  {
+    "imageName": "maxresdefault.jpg",
+    "category": "non recyclable",
+    "score": "20%",
+    "timestamp": "2026-04-16T14:25:34.176Z"
+  },
+  {
+    "imageName": "maxresdefault.jpg",
+    "category": "non recyclable",
+    "score": "20%",
+    "timestamp": "2026-04-16T14:25:36.939Z"
+  },
+  {
+    "imageName": "4-easy-methods-to-repurpose-food-scraps-through-kitchen-composting.jpg",
+    "category": "organic",
+    "score": "70%",
+    "timestamp": "2026-04-16T14:25:50.330Z"
+  },
+  {
+    "imageName": "01_ref_aerosol_dekxr6_4x3.jpg",
+    "category": "recyclable",
+    "score": "90%",
+    "timestamp": "2026-04-16T14:26:07.252Z"
+  },
+  {
+    "imageName": "lukas-texture-vessel-scaled.jpg",
+    "category": "recyclable",
+    "score": "90%",
+    "timestamp": "2026-04-16T14:26:20.753Z"
+  },
+  {
+    "imageName": "0.42889600_1581698919_59.jpg",
+    "category": "recyclable",
+    "score": "90%",
+    "timestamp": "2026-04-16T14:26:33.825Z"
+  },
+  {
+    "imageName": "8e22955011cf8d6d8ac7d13a1e62a2ee_xl.jpg",
+    "category": "non recyclable",
+    "score": "20%",
+    "timestamp": "2026-04-16T14:26:43.234Z"
+  },
+  {
+    "imageName": "1-s2.0-s2666016421000268-ga1.jpg",
+    "category": "hazardous",
+    "score": "10%",
+    "timestamp": "2026-04-16T14:26:53.673Z"
+  },
+  {
+    "imageName": "1f962803384fdb322c4df8ad882b6176.jpg",
+    "category": "non recyclable",
+    "score": "20%",
+    "timestamp": "2026-04-16T14:27:11.365Z"
+  },
+  {
+    "imageName": "ewaste.jpg",
+    "category": "non recyclable",
+    "score": "20%",
+    "timestamp": "2026-04-16T14:33:11.660Z"
+  },
+  {
+    "imageName": "ewaste.jpg",
+    "category": "non recyclable",
+    "score": "20%",
+    "timestamp": "2026-04-16T14:33:11.693Z"
+  },
+  {
+    "imageName": "lukas-texture-vessel-scaled.jpg",
+    "category": "recyclable",
+    "score": "90%",
+    "timestamp": "2026-04-16T14:33:25.400Z"
+  }
+]
