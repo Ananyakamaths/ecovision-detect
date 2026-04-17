@@ -130,8 +130,9 @@ function Home() {
       setResult({ category, score });
 
       // Send to backend API as required by user architecture (though inference is frontend)
+      const apiBase = import.meta.env.VITE_API_URL ?? "";
       try {
-        await axios.post('http://localhost:3000/save', {
+        await axios.post(`${apiBase}/save`, {
           imageName,
           category,
           score,
