@@ -40,10 +40,9 @@ function Home() {
 
   useEffect(() => {
     let isMounted = true;
-
     async function loadModel() {
       try {
-        const loadedModel = await tf.loadLayersModel("/model/model.json");
+        const loadedModel = await tf.loadLayersModel("/model/model.json")
         if (isMounted) {
           setModel(loadedModel);
           console.log("✅ Model Loaded Successfully");
@@ -52,12 +51,8 @@ function Home() {
         console.error("❌ Model loading failed:", error);
       }
     }
-
     loadModel();
-
-    return () => {
-      isMounted = false;
-    };
+    return () => { isMounted = false; };
   }, []);
 
   const handleImageSelect = (file) => {
@@ -80,7 +75,6 @@ function Home() {
 
     try {
       const imgElement = document.getElementById('preview');
-
       const tensor = tf.browser.fromPixels(imgElement)
         .resizeNearestNeighbor([224, 224])
         .toFloat()
@@ -89,6 +83,7 @@ function Home() {
 
       const predictions = await model.predict(tensor).data();
 
+      // ✅ CLASS ORDER (IMPORTANT)
       const classes = [
         "ewaste",
         "hazardous",
@@ -97,6 +92,7 @@ function Home() {
         "organic"
       ];
 
+      // 🔥 Get top 2 predictions
       let sorted = [...predictions]
         .map((value, index) => ({ value, index }))
         .sort((a, b) => b.value - a.value);
@@ -105,10 +101,12 @@ function Home() {
       let second = sorted[1];
       let category = classes[first.index];
 
+      // 🔥 Fix 1: If very close, use second
       if (Math.abs(first.value - second.value) < 0.10) {
         category = classes[second.index];
       }
 
+      // 🔥 Fix 2: Avoid wrong "non recyclable"
       if (category === "non recyclable" && second.value > 0.30) {
         let secondCategory = classes[second.index];
         if (secondCategory !== "non recyclable") {
@@ -116,8 +114,8 @@ function Home() {
         }
       }
 
+      // 🔥 Fix 3: CERAMIC / VASE FIX (VERY IMPORTANT)
       let imageName = imageFile.name.toLowerCase();
-
       if (
         imageName.includes("ceramic") ||
         imageName.includes("vase") ||
@@ -131,8 +129,8 @@ function Home() {
       let score = getScore(category, imageName);
       setResult({ category, score });
 
+      // Send to backend API as required by user architecture (though inference is frontend)
       const apiBase = import.meta.env.VITE_API_URL ?? "";
-
       try {
         await axios.post(`${apiBase}/api/save`, {
           imageName,
@@ -159,19 +157,16 @@ function Home() {
       <Hero />
       <About />
       <Objectives />
-
       <Upload 
         onImageSelect={handleImageSelect} 
         previewUrl={previewUrl} 
         onPredict={predict} 
       />
-
       <Result 
         loading={loading} 
         category={result.category} 
         score={result.score} 
       />
-
       <HowItWorks />
       <Team />
       <Footer />
@@ -180,6 +175,15 @@ function Home() {
 }
 
 function App() {
+  const [model, setModel] = useState(null);
+  useEffect(() => {
+  async function loadModel() {
+    const loadedModel = await tf.loadLayersModel("/model/model.json");
+    setModel(loadedModel);
+    console.log("Model loaded");
+  }
+  loadModel();
+}, []);
   return (
     <Router>
       <Routes>
