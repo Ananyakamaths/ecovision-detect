@@ -1,0 +1,164 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* BODY */
+body {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: #fff;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* HEADER */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* LOGO */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.logo svg {
+  width: 40px;
+  height: 40px;
+}
+.logo h1 {
+  font-size: 24px;
+  color: #22c55e;
+}
+
+/* NAV */
+nav a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+nav a:hover {
+  color: #22c55e;
+}
+
+/* SECTIONS */
+section, .page-section {
+  margin: 40px auto;
+  padding: 30px;
+  width: 80%;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* HEADINGS */
+h2 {
+  margin-bottom: 15px;
+  color: #22c55e;
+}
+
+/* BUTTON */
+button, .btn {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(45deg, #22c55e, #0ea5e9);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+button:hover, .btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 20px rgba(34,197,94,0.5);
+}
+
+button:disabled, .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* INPUT */
+input[type="file"] {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: #fff;
+  color: #000;
+  width: 100%;
+  max-width: 300px;
+}
+
+/* IMAGE PREVIEW */
+.preview-img {
+  border-radius: 15px;
+  margin-top: 10px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+  max-width: 100%;
+}
+
+/* RESULT TEXT */
+.category-text {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.score-text {
+  font-size: 18px;
+  margin-top: 5px;
+}
+
+/* LOADING */
+.loading-text {
+  font-style: italic;
+  color: #0ea5e9;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+  background: rgba(255,255,255,0.05);
+}
+
+/* HOVER EFFECT FOR SECTIONS */
+section:hover, .page-section:hover {
+  transform: translateY(-5px);
+  transition: 0.3s;
+}
+
+/* MOBILE */
+@media(max-width: 768px) {
+  section, .page-section {
+    width: 95%;
+  }
+
+  header {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
