@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from "react";
+import * as tf from "@tensorflow/tfjs";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import * as tf from '@tensorflow/tfjs';
 import axios from 'axios';
 
 import { Navbar, Hero, About, Objectives, HowItWorks, Team, Footer } from './components/StaticComponents';
@@ -175,6 +175,15 @@ function Home() {
 }
 
 function App() {
+  const [model, setModel] = useState(null);
+  useEffect(() => {
+  async function loadModel() {
+    const loadedModel = await tf.loadLayersModel("/model/model.json");
+    setModel(loadedModel);
+    console.log("Model loaded");
+  }
+  loadModel();
+}, []);
   return (
     <Router>
       <Routes>
