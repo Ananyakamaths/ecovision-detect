@@ -1,10 +1,17 @@
 {
+<<<<<<< HEAD
   "name": "ecovision-detect",
+=======
+  "name": "frontend",
+>>>>>>> b088cd8b8ded0990610ef93523063d8d83702ef2
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+<<<<<<< HEAD
     "start": "vite",
+=======
+>>>>>>> b088cd8b8ded0990610ef93523063d8d83702ef2
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
@@ -12,6 +19,7 @@
   },
   "dependencies": {
     "@tensorflow/tfjs": "^4.22.0",
+<<<<<<< HEAD
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-router-dom": "^7.14.1"
@@ -28,3 +36,22 @@
     "vite": "^8.0.4"
   }
 }
+=======
+    "axios": "^1.15.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^7.14.1"
+  },
+  "devDependencies": {
+    "vite": "^8.0.4",
+    "@vitejs/plugin-react": "^6.0.1",
+    "@eslint/js": "^9.39.4",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "eslint": "^9.39.4",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.4.0"
+  }
+}
+>>>>>>> b088cd8b8ded0990610ef93523063d8d83702ef2
