@@ -7,28 +7,50 @@ import { Navbar, Hero, About, Objectives, HowItWorks, Team, Footer } from './com
 import { Upload } from './components/Upload';
 import { Result } from './components/Result';
 
-// ♻️ Smart Score Function
-function getScore(category, name) {
-  name = name.toLowerCase();
+const materialMapping = {
+  paper: { label: "Paper", recyclability: "85%", reusability: "60%", biodegradable: "Yes", recyclableTag: "Recyclable" },
+  plastic: { label: "Plastic", recyclability: "60%", reusability: "40%", biodegradable: "No", recyclableTag: "Recyclable" },
+  metal: { label: "Metal", recyclability: "95%", reusability: "70%", biodegradable: "No", recyclableTag: "Recyclable" },
+  organic: { label: "Organic", recyclability: "50%", reusability: "30%", biodegradable: "Yes", recyclableTag: "Non-Recyclable" },
+  glass: { label: "Glass", recyclability: "90%", reusability: "80%", biodegradable: "No", recyclableTag: "Recyclable" },
+  ewaste: { label: "E-Waste", recyclability: "60%", reusability: "20%", biodegradable: "No", recyclableTag: "Recyclable" },
+  hazardous: { label: "Hazardous", recyclability: "10%", reusability: "0%", biodegradable: "No", recyclableTag: "Non-Recyclable" },
+  recyclable: { label: "Recyclable", recyclability: "90%", reusability: "50%", biodegradable: "No", recyclableTag: "Recyclable" },
+  "non recyclable": { label: "Non-Recyclable", recyclability: "20%", reusability: "10%", biodegradable: "No", recyclableTag: "Non-Recyclable" }
+};
 
-  if (name.includes("ceramic") || name.includes("plate") || name.includes("cup")) {
-    return "30%";
+function getMaterialInfo(predictedCategory, imageName) {
+  let name = imageName.toLowerCase();
+  let label = predictedCategory.trim().toLowerCase();
+
+  // Rule-based correction & label extraction from imagename
+  if (name.includes("paper")) label = "paper";
+  else if (name.includes("plastic") || name.includes("bottle")) label = "plastic";
+  else if (name.includes("metal") || name.includes("can")) label = "metal";
+  else if (name.includes("glass")) label = "glass";
+  else if (name.includes("organic")) label = "organic";
+  else if (name.includes("ceramic") || name.includes("plate") || name.includes("cup") || name.includes("vase") || name.includes("pot")) label = "non recyclable";
+  
+  if (label === "plastic_bottle") label = "plastic"; // Normalization
+
+  const info = materialMapping[label];
+  if (info) {
+    return {
+      label: info.label,
+      recyclability: info.recyclability,
+      reusability: info.reusability,
+      biodegradable: info.biodegradable,
+      recyclableTag: info.recyclableTag
+    };
   }
 
-  if (name.includes("glass")) return "80%";
-  if (name.includes("paper")) return "90%";
-  if (name.includes("plastic")) return "50%";
-  if (name.includes("metal")) return "85%";
-
-  let scores = {
-    "ewaste": "60%",
-    "hazardous": "10%",
-    "recyclable": "90%",
-    "non recyclable": "20%",
-    "organic": "70%"
+  return {
+    label: "Unknown material",
+    recyclability: "0%",
+    reusability: "0%",
+    biodegradable: "Unknown",
+    recyclableTag: "Non-Recyclable"
   };
-
-  return scores[category];
 }
 
 function Home() {
@@ -36,7 +58,7 @@ function Home() {
   const [imageFile, setImageFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState({ category: null, score: null });
+  const [result, setResult] = useState({});
 
   useEffect(() => {
     let isMounted = true;
@@ -58,7 +80,7 @@ function Home() {
   const handleImageSelect = (file) => {
     setImageFile(file);
     setPreviewUrl(URL.createObjectURL(file));
-    setResult({ category: null, score: null });
+    setResult({});
   };
 
   const predict = async () => {
@@ -100,10 +122,12 @@ function Home() {
       let first = sorted[0];
       let second = sorted[1];
       let category = classes[first.index];
+      let finalConfidence = first.value;
 
       // 🔥 Fix 1: If very close, use second
       if (Math.abs(first.value - second.value) < 0.10) {
         category = classes[second.index];
+        finalConfidence = second.value;
       }
 
       // 🔥 Fix 2: Avoid wrong "non recyclable"
@@ -111,31 +135,39 @@ function Home() {
         let secondCategory = classes[second.index];
         if (secondCategory !== "non recyclable") {
           category = secondCategory;
+          finalConfidence = second.value;
         }
       }
 
-      // 🔥 Fix 3: CERAMIC / VASE FIX (VERY IMPORTANT)
-      let imageName = imageFile.name.toLowerCase();
-      if (
-        imageName.includes("ceramic") ||
-        imageName.includes("vase") ||
-        imageName.includes("pot") ||
-        imageName.includes("cup") ||
-        imageName.includes("plate")
-      ) {
-        category = "non recyclable";
+      // Validation rule: confidence < 0.6
+      let warning = null;
+      if (finalConfidence < 0.6) {
+        warning = "Low confidence prediction – result may be inaccurate";
       }
 
-      let score = getScore(category, imageName);
-      setResult({ category, score });
+      let imageName = imageFile.name;
+      let materialInfo = getMaterialInfo(category, imageName);
+      let confidencePercent = (finalConfidence * 100).toFixed(1);
+
+      let resultData = { 
+        label: materialInfo.label,
+        confidence: confidencePercent,
+        warning: warning,
+        recyclability: materialInfo.recyclability,
+        reusability: materialInfo.reusability,
+        biodegradable: materialInfo.biodegradable,
+        recyclableTag: materialInfo.recyclableTag
+      };
+
+      setResult(resultData);
 
       // Send to backend API as required by user architecture (though inference is frontend)
       const apiBase = import.meta.env.VITE_API_URL ?? "";
       try {
         await axios.post(`${apiBase}/api/save`, {
           imageName,
-          category,
-          score,
+          category: materialInfo.label,
+          score: materialInfo.reusability,
           timestamp: new Date().toISOString()
         });
         console.log("Prediction logged to backend");
@@ -164,8 +196,8 @@ function Home() {
       />
       <Result 
         loading={loading} 
-        category={result.category} 
-        score={result.score} 
+        resultData={result} 
+        previewUrl={previewUrl}
       />
       <HowItWorks />
       <Team />
