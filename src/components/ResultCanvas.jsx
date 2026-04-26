@@ -1,56 +1,56 @@
 import { useEffect, useRef } from 'react';
 
-function ResultCanvas({ imageSrc, category, color }) {
+/**
+ * ResultCanvas — draws the uploaded image onto a canvas.
+ * No category label or bounding box text is drawn here.
+ * The sustainability result is shown in the Result page's own UI.
+ */
+function ResultCanvas({ imageSrc }) {
   const canvasRef = useRef(null);
-  const imageRef = useRef(null);
+  const imageRef  = useRef(null);
 
   useEffect(() => {
-    if (imageSrc && canvasRef.current && imageRef.current) {
-      const canvas = canvasRef.current;
-      const ctx = canvas.getContext('2d');
-      const img = imageRef.current;
+    if (!imageSrc || !canvasRef.current || !imageRef.current) return;
 
-      img.onload = () => {
-        canvas.width = img.width;
-        canvas.height = img.height;
-        ctx.drawImage(img, 0, 0, img.width, img.height);
+    const canvas = canvasRef.current;
+    const ctx    = canvas.getContext('2d');
+    const img    = imageRef.current;
 
-        // Overlay Bounding Box dynamically based on image size
-        const boxWidth = img.width * 0.8;
-        const boxHeight = img.height * 0.8;
-        const x = (img.width - boxWidth) / 2;
-        const y = (img.height - boxHeight) / 2;
+    const draw = () => {
+      canvas.width  = img.naturalWidth  || img.width;
+      canvas.height = img.naturalHeight || img.height;
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 4;
-        ctx.strokeRect(x, y, boxWidth, boxHeight);
+      // Subtle green overlay border — no text, no labels
+      ctx.strokeStyle = '#22c55e';
+      ctx.lineWidth   = Math.max(3, canvas.width * 0.005);
+      const pad = ctx.lineWidth / 2;
+      ctx.strokeRect(pad, pad, canvas.width - pad * 2, canvas.height - pad * 2);
+    };
 
-        // Background for text
-        ctx.fillStyle = color;
-        ctx.fillRect(x, y - 30, ctx.measureText(category).width + 30, 30);
-
-        // Text
-        ctx.fillStyle = "white";
-        ctx.font = "20px Arial";
-        ctx.fillText(category.toUpperCase(), x + 10, y - 8);
-      };
+    if (img.complete) {
+      draw();
+    } else {
+      img.onload = draw;
     }
-  }, [imageSrc, category, color]);
+  }, [imageSrc]);
 
   return (
     <div style={{ position: 'relative', display: 'inline-block' }}>
-      {/* Hidden image used to draw to canvas */}
-      <img 
-        ref={imageRef} 
-        src={imageSrc} 
-        alt="hidden" 
-        style={{ display: 'none' }} 
+      {/* Hidden source image */}
+      <img
+        ref={imageRef}
+        src={imageSrc}
+        alt=""
+        aria-hidden="true"
+        style={{ display: 'none' }}
       />
-      <canvas 
-        ref={canvasRef} 
+      <canvas
+        ref={canvasRef}
         className="preview-img"
-        style={{ maxWidth: '100%' }}
-      ></canvas>
+        style={{ maxWidth: '100%', borderRadius: '12px' }}
+        aria-label="Analysed waste image"
+      />
     </div>
   );
 }
