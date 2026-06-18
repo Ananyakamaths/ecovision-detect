@@ -1,0 +1,31 @@
+[
+  {
+    "label": "paintbrush",
+    "category": "non_recyclable",
+    "confidence": "23.93"
+  },
+  {
+    "label": "paintbrush face powder maraca",
+    "category": "non_recyclable",
+    "confidence": "23.93"
+  },
+  {
+    "label": "paintbrush face powder maraca",
+    "category": "non_recyclable",
+    "confidence": "23.93"
+  },
+  {
+    "label": "paintbrush face powder maraca",
+    "category": "non_recyclable",
+    "confidence": "23.93"
+  },
+  {
+    "label": "paintbrush",
+    "category": "non_recyclable",
+    "confidence": "23.93"
+  },
+  {
+    "category": "organic",
+    "confidence": "20.00%"
+  }
+]

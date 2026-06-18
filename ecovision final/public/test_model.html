@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.17.0"></script>
+</head>
+<body>
+  <div id="output">Loading...</div>
+  <script>
+    async function run() {
+      try {
+        const model = await tf.loadLayersModel('model/model.json');
+        const shape = model.outputs[0].shape;
+        document.getElementById('output').innerText = 'Output shape: ' + JSON.stringify(shape);
+      } catch (e) {
+        document.getElementById('output').innerText = 'Error: ' + e.message;
+      }
+    }
+    run();
+  </script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* BODY */
+body {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: #fff;
+  line-height: 1.6;
+}
+
+/* HEADER */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+}
+
+/* LOGO */
+.logo h1 {
+  font-size: 24px;
+  color: #22c55e;
+}
+
+/* NAV */
+nav a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  color: #22c55e;
+}
+
+/* SECTIONS */
+section {
+  margin: 40px auto;
+  padding: 30px;
+  width: 80%;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* HEADINGS */
+h2 {
+  margin-bottom: 15px;
+  color: #22c55e;
+}
+
+/* BUTTON */
+button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(45deg, #22c55e, #0ea5e9);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 20px rgba(34,197,94,0.5);
+}
+
+/* INPUT */
+input {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: #fff;
+  color: #000;
+}
+
+/* IMAGE PREVIEW */
+#preview {
+  border-radius: 15px;
+  margin-top: 10px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+}
+
+/* RESULT TEXT */
+#category {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+#score {
+  font-size: 18px;
+  margin-top: 5px;
+}
+
+/* LOADING */
+#loading {
+  font-style: italic;
+  color: #0ea5e9;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+  background: rgba(255,255,255,0.05);
+}
+
+/* HOVER EFFECT FOR SECTIONS */
+section:hover {
+  transform: translateY(-5px);
+  transition: 0.3s;
+}
+
+/* MOBILE */
+@media(max-width: 768px) {
+  section {
+    width: 95%;
+  }
+
+  header {
+    flex-direction: column;
+  }
+}
