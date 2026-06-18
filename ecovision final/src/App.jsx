@@ -31,10 +31,6 @@ function App() {
         <Route path="/result" element={<Result />} />
       </Routes>
       <footer>
-<<<<<<< HEAD
-        <p>© 2026 EcoVision | Smart Waste Management 🌍</p>
-      </footer>
-=======
         <p>© 2026 EcoVision · Ananya kamath s · Smart Waste Management 🌿</p>
       </footer>
 
@@ -44,7 +40,6 @@ function App() {
         alt="Ananya kamath s"
         className="floating-panda"
       />
->>>>>>> 31126f9 (initial commit)
     </Router>
   );
 }
