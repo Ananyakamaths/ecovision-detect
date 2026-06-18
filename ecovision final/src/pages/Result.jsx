@@ -18,7 +18,7 @@ function ScoreRing({ score, size = 110, stroke = 9, color = '#22c55e', label }) 
         {/* Track */}
         <circle
           cx={size / 2} cy={size / 2} r={radius}
-          fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth={stroke}
+          fill="none" stroke="rgba(180,120,20,0.15)" strokeWidth={stroke}
         />
         {/* Progress */}
         <circle
@@ -35,7 +35,7 @@ function ScoreRing({ score, size = 110, stroke = 9, color = '#22c55e', label }) 
           x="50%" y="50%"
           dominantBaseline="middle"
           textAnchor="middle"
-          fill="#fff"
+          fill="#3d2b0e"
           fontSize="18"
           fontWeight="700"
         >
@@ -81,7 +81,7 @@ function Result() {
     return (
       <section id="result" className="page-section result-page">
         <h2>🌿 Sustainability Report</h2>
-        <p style={{ color: '#94a3b8', marginTop: '10px' }}>
+        <p style={{ color: '#6b4c1a', marginTop: '10px' }}>
           No analysis available yet. Please upload an image first.
         </p>
         <Link to="/upload" className="btn" style={{ marginTop: '24px', display: 'inline-block' }}>
@@ -92,11 +92,11 @@ function Result() {
   }
 
   // Tier badge colour
-  const tierColor = { HIGH: '#22c55e', MEDIUM: '#f59e0b', LOW: '#ef4444' }[tier] || '#64748b';
+  const tierColor = { HIGH: '#1a7a38', MEDIUM: '#b45309', LOW: '#9b2c1a' }[tier] || '#6b4c1a';
 
   // Confidence bar colour
   const confNum = parseFloat(sustainabilityConfidence);
-  const confColor = confNum >= 70 ? '#22c55e' : confNum >= 45 ? '#f59e0b' : '#ef4444';
+  const confColor = confNum >= 70 ? '#1a7a38' : confNum >= 45 ? '#b45309' : '#9b2c1a';
 
   return (
     <section id="result" className="page-section result-page">
